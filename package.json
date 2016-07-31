@@ -1,0 +1,22 @@
+{
+  "name": "keen-boilerplate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/keen-on-design/boilerplate.git"
+  },
+  "author": "keen-on-design",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/keen-on-design/boilerplate/issues"
+  },
+  "homepage": "https://github.com/keen-on-design/boilerplate#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  }
+}
