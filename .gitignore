@@ -1,3 +1,6 @@
+# Ignore Build folder
+build/
+
 # Ignore Bower vendors
 vendor/
 
