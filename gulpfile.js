@@ -15,7 +15,8 @@ var concat          = require('gulp-concat'),
     cache           = require('gulp-cache'),
     filter          = require('gulp-filter'),
     mainBowerFiles  = require('main-bower-files'),
-    debug           = require('gulp-debug');
+    debug           = require('gulp-debug'),
+    browserSync = require('browser-sync').create();
 
 
 gulp.task('bower-js', function() {
@@ -39,6 +40,7 @@ gulp.task('scripts', function() {
 // Compile CSS from Sass files
 gulp.task('sass', function() {
     return gulp.src(src + 'scss/style.scss')
+        .pipe(plumber())
         .pipe(sass({style: 'compressed'}))
         .pipe(debug())
         .pipe(rename({suffix: '.min'}))
@@ -53,11 +55,15 @@ gulp.task('images', function() {
 
 // Watch for changes in files
 gulp.task('watch', function() {
+    browserSync.init({
+        server: './'
+    });
+
     // Watch .js files
     gulp.watch('../vendor/**/*.js', ['bower-js']);
     gulp.watch(src + 'js/*.js', ['scripts']);
     // Watch .scss files
-    gulp.watch(src + 'scss/*.scss', ['sass']);
+    gulp.watch(src + 'scss/*.scss', ['sass']).on('change', browserSync.reload);
     // Watch image files
     gulp.watch(src + 'images/**/*', ['images']);
 });
