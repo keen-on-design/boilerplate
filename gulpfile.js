@@ -16,7 +16,6 @@ var concat          = require('gulp-concat'),
     filter          = require('gulp-filter'),
     mainBowerFiles  = require('main-bower-files'),
     debug           = require('gulp-debug'),
-    plumber         = require('gulp-plumber'),
     browserSync     = require('browser-sync').create();
 
 
@@ -56,6 +55,13 @@ gulp.task('images', function() {
 
 // Watch for changes in files
 gulp.task('watch', function() {
+
+    browserSync.init({
+        server: {
+            baseDir: "./"
+        }
+    });
+
     // Watch .js files
     gulp.watch('../vendor/**/*.js', ['bower-js']);
     gulp.watch(src + 'js/*.js', ['scripts']);
