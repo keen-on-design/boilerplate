@@ -23,6 +23,7 @@
     "browser-sync": "^2.14.0",
     "gulp-cache": "^0.4.5",
     "gulp-concat": "^2.6.0",
+    "gulp-cssnano": "^2.1.2",
     "gulp-filter": "^4.0.0",
     "gulp-imagemin": "^3.0.2",
     "gulp-path": "^3.0.3",
