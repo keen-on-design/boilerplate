@@ -1,13 +1,12 @@
 // Include gulp
 var gulp = require('gulp');
 
-// Define _base folders
+// Define base folders
 var src = './app/';
 var dest = './build/';
 
 // Include plugins
 var concat          = require('gulp-concat'),
-    plumber         = require('gulp-plumber'),
     uglify          = require('gulp-uglify'),
     rename          = require('gulp-rename'),
     sass            = require('gulp-sass'),
@@ -15,7 +14,9 @@ var concat          = require('gulp-concat'),
     cache           = require('gulp-cache'),
     filter          = require('gulp-filter'),
     mainBowerFiles  = require('main-bower-files'),
-    debug           = require('gulp-debug');
+    debug           = require('gulp-debug'),
+    plumber         = require('gulp-plumber'),
+    browserSync     = require('browser-sync').create();
 
 
 gulp.task('bower-js', function() {
@@ -29,7 +30,6 @@ gulp.task('bower-js', function() {
 // Concatenate & Minify JS
 gulp.task('scripts', function() {
     return gulp.src(src + 'js/*.js')
-        .pipe(plumber())
         .pipe(concat('app.js'))
         .pipe(rename({suffix: '.min'}))
         .pipe(uglify())
@@ -39,6 +39,7 @@ gulp.task('scripts', function() {
 // Compile CSS from Sass files
 gulp.task('sass', function() {
     return gulp.src(src + 'scss/style.scss')
+        .pipe(plumber())
         .pipe(sass({style: 'compressed'}))
         .pipe(debug())
         .pipe(rename({suffix: '.min'}))
@@ -57,10 +58,11 @@ gulp.task('watch', function() {
     gulp.watch('../vendor/**/*.js', ['bower-js']);
     gulp.watch(src + 'js/*.js', ['scripts']);
     // Watch .scss files
-    gulp.watch(src + 'scss/*.scss', ['sass']);
+    gulp.watch(src + 'scss/*.scss', ['sass']).on('change', browserSync.reload);
     // Watch image files
     gulp.watch(src + 'images/**/*', ['images']);
 });
 
 // Default Task
-gulp.task('default', ['bower-js', 'scripts', 'sass', 'images', 'watch']);
+gulp.task('default', ['scripts', 'sass', 'images', 'watch']);
+//gulp.task('default', ['bower-js']);
