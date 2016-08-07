@@ -21,6 +21,15 @@ var concat          = require('gulp-concat'),
     browserSync     = require('browser-sync').create();
 
 
+gulp.task('browserSync', function() {
+    browserSync.init({
+        server: {
+            baseDir: root
+        }
+    })
+});
+
+
 gulp.task('bower-js', function() {
     var mainFiles = mainBowerFiles();
     console.log(mainFiles);
@@ -55,10 +64,6 @@ gulp.task('sass', function() {
         }));
 });
 
-// Compile CSS from Sass files
-gulp.task('html', function() {
-    return gulp.src(root + '*.html');
-});
 
 gulp.task('images', function() {
     return gulp.src(src + 'images/**/*')
@@ -68,26 +73,21 @@ gulp.task('images', function() {
 
 // Watch for changes in files
 gulp.task('watch', function() {
+    // Watch bower vendors
+    gulp.watch('../vendor/**/*.js', ['bower-js']);
 
-    browserSync.init({
-        server: {
-            baseDir: "./"
-        }
-    });
+    // Watch .html files
+    gulp.watch(root + '*.html', browserSync.reload);
 
     // Watch .js files
-    gulp.watch('../vendor/**/*.js', ['bower-js']);
     gulp.watch(src + 'js/*.js', ['scripts']);
 
     // Watch .scss files
-    gulp.watch(root + '*.html', ['html']).on('change', browserSync.reload);
-
-    // Watch .scss files
-    gulp.watch(src + 'scss/style.scss', ['sass']);
+    gulp.watch(src + 'scss/*.scss', ['sass']);
 
     // Watch image files
     gulp.watch(src + 'images/**/*', ['images']);
 });
 
 // Default Task
-gulp.task('default', ['bower-js', 'scripts', 'sass', 'images', 'html', 'watch']);
+gulp.task('default', ['browserSync', 'bower-js', 'scripts', 'sass', 'images', 'watch']);
