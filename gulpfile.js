@@ -7,6 +7,7 @@ var dest = './build/';
 
 // Include plugins
 var concat          = require('gulp-concat'),
+    plumber         = require('gulp-plumber'),
     uglify          = require('gulp-uglify'),
     rename          = require('gulp-rename'),
     sass            = require('gulp-sass'),
@@ -30,6 +31,7 @@ gulp.task('bower-js', function() {
 // Concatenate & Minify JS
 gulp.task('scripts', function() {
     return gulp.src(src + 'js/*.js')
+        .pipe(plumber())
         .pipe(concat('app.js'))
         .pipe(rename({suffix: '.min'}))
         .pipe(uglify())
@@ -64,5 +66,4 @@ gulp.task('watch', function() {
 });
 
 // Default Task
-gulp.task('default', ['scripts', 'sass', 'images', 'watch']);
-//gulp.task('default', ['bower-js']);
+gulp.task('default', ['bower-js', 'scripts', 'sass', 'images', 'watch']);
