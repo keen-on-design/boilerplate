@@ -2,8 +2,9 @@
 var gulp = require('gulp');
 
 // Define base folders
-var src = './app/';
-var dest = './build/';
+var root    = './';
+var src     = './app/';
+var dest    = './build/';
 
 // Include plugins
 var concat          = require('gulp-concat'),
@@ -13,6 +14,7 @@ var concat          = require('gulp-concat'),
     sass            = require('gulp-sass'),
     imagemin        = require('gulp-imagemin'),
     cache           = require('gulp-cache'),
+    cssnano         = require('gulp-cssnano'),
     filter          = require('gulp-filter'),
     mainBowerFiles  = require('main-bower-files'),
     debug           = require('gulp-debug'),
@@ -34,7 +36,10 @@ gulp.task('scripts', function() {
         .pipe(concat('app.js'))
         .pipe(rename({suffix: '.min'}))
         .pipe(uglify())
-        .pipe(gulp.dest(dest + 'js'));
+        .pipe(gulp.dest(dest + 'js'))
+        .pipe(browserSync.reload({
+            stream: true
+        }));
 });
 
 // Compile CSS from Sass files
@@ -42,9 +47,17 @@ gulp.task('sass', function() {
     return gulp.src(src + 'scss/style.scss')
         .pipe(plumber())
         .pipe(sass({style: 'compressed'}))
-        .pipe(debug())
+        .pipe(cssnano())
         .pipe(rename({suffix: '.min'}))
-        .pipe(gulp.dest(dest + 'css'));
+        .pipe(gulp.dest(dest + 'css'))
+        .pipe(browserSync.reload({
+            stream: true
+        }));
+});
+
+// Compile CSS from Sass files
+gulp.task('html', function() {
+    return gulp.src(root + '*.html');
 });
 
 gulp.task('images', function() {
@@ -65,11 +78,16 @@ gulp.task('watch', function() {
     // Watch .js files
     gulp.watch('../vendor/**/*.js', ['bower-js']);
     gulp.watch(src + 'js/*.js', ['scripts']);
+
     // Watch .scss files
-    gulp.watch(src + 'scss/*.scss', ['sass']).on('change', browserSync.reload);
+    gulp.watch(root + '*.html', ['html']).on('change', browserSync.reload);
+
+    // Watch .scss files
+    gulp.watch(src + 'scss/style.scss', ['sass']);
+
     // Watch image files
     gulp.watch(src + 'images/**/*', ['images']);
 });
 
 // Default Task
-gulp.task('default', ['bower-js', 'scripts', 'sass', 'images', 'watch']);
+gulp.task('default', ['bower-js', 'scripts', 'sass', 'images', 'html', 'watch']);
