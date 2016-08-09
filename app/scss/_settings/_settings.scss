@@ -8,36 +8,8 @@ $mobile: new-breakpoint(max-width 500px 4);
 
 $visual-grid-color: lighten(#FFF0E8, 3%);
 
-
 // Font.
-$font: (
-        body : (
-                family:       (Arial, Helvetica, sans-serif),
-                weight:       normal,
-                weight-bold:  bold
-        ),
+@import "fonts";
 
-        headlines : (
-                family:         (Raleway),
-                weight:         bold,
-                weight-bold:    bold
-        ),
-
-        decorative: (
-                family:         (Arial, Helvetica, sans-serif),
-                weight:         normal,
-                weight-bold:    bold
-        ),
-
-        iconic: (
-                family:         FontAwesome,
-                style:          normal,
-                weight:         normal
-        ),
-
-        mono : (
-                family:         ('Courier New', monospace),
-                weight:         normal,
-                weight-bold:    bold
-        )
-);
+// Colors.
+@import "colors";
