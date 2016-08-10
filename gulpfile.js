@@ -83,7 +83,7 @@ gulp.task('watch', function() {
     gulp.watch(src + 'js/*.js', ['scripts']);
 
     // Watch .scss files
-    gulp.watch(src + 'scss/*.scss', ['sass']);
+    gulp.watch(src + 'scss/**/*.scss', ['sass']);
 
     // Watch image files
     gulp.watch(src + 'images/**/*', ['images']);
