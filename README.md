@@ -2,8 +2,9 @@
 
 Getting started:
 
-1. clone this repo
-...
+1. clone this repo - git clone https://github.com/keen-on-design/boilerplate.git
+2. install npm and bower packages...
+3. install gem bourbon...
 
 ## SASS
 Рабочая директория: app/scss
