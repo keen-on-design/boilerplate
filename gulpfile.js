@@ -1,13 +1,11 @@
-// Include gulp
-var gulp = require('gulp');
-
 // Define base folders
 var root    = './';
 var src     = './app/';
 var dest    = './build/';
 
 // Include plugins
-var concat          = require('gulp-concat'),
+var gulp            = require('gulp'),
+    concat          = require('gulp-concat'),
     plumber         = require('gulp-plumber'),
     uglify          = require('gulp-uglify'),
     rename          = require('gulp-rename'),
@@ -19,6 +17,58 @@ var concat          = require('gulp-concat'),
     mainBowerFiles  = require('main-bower-files'),
     debug           = require('gulp-debug'),
     browserSync     = require('browser-sync').create();
+
+// Paths
+
+var paths = {
+    pug : {
+        location : src + 'template/**/*.pug',
+        compiled : src + 'template/_pages/*.pug',
+        destination: dest
+    },
+
+    scss : {
+        location : src + 'scss/**/*.scss',
+        entryPoin : src + 'scss/style.scss',
+        destination: dest + 'css'
+    },
+
+    js : {
+        location : src + 'js/**/*.js',
+        entryPoint : src + 'js/main.js',
+        destination : dest + 'js'
+    },
+
+    browserSync : {
+        baseDir : root,
+        watchPaths : ['build/*.html', 'build/css/*.css', 'build/js/*.js']
+    }
+};
+
+
+
+// ------- pug ---------
+
+gulp.task('pug', function() {
+    var assets = useref.assets();
+
+    gulp.src(paths.pug.compiled)
+      .pipe(plumber())
+      .pipe(pug({
+          pretty: '\t',
+          basedir: root
+      }))
+      .pipe(assets)
+      .pipe(gulpif('*.js', uglify()))
+      .pipe(gulpif('*.css', cssnano()))
+      .pipe(assets.restore())
+      .pipe(useref())
+      .pipe(gulp.dest(paths.pug.destination));
+});
+
+
+
+
 
 
 gulp.task('browserSync', function() {
