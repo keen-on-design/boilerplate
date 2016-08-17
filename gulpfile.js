@@ -5,8 +5,12 @@ var dest    = './build/';
 
 // Include plugins
 var gulp            = require('gulp'),
+    pug             = require('gulp-pug'),
+    gulpif          = require('gulp-if'),
     concat          = require('gulp-concat'),
     plumber         = require('gulp-plumber'),
+    sourcemaps      = require('gulp-sourcemaps'),
+    autoprefixer    = require('gulp-autoprefixer'),
     uglify          = require('gulp-uglify'),
     rename          = require('gulp-rename'),
     sass            = require('gulp-sass'),
@@ -15,7 +19,8 @@ var gulp            = require('gulp'),
     cssnano         = require('gulp-cssnano'),
     filter          = require('gulp-filter'),
     mainBowerFiles  = require('main-bower-files'),
-    debug           = require('gulp-debug'),
+    useref          = require('gulp-useref'),
+    rimraf          = require('rimraf'),
     browserSync     = require('browser-sync').create();
 
 // Paths
@@ -29,7 +34,7 @@ var paths = {
 
     scss : {
         location : src + 'scss/**/*.scss',
-        entryPoin : src + 'scss/style.scss',
+        entryPoint : src + 'scss/style.scss',
         destination: dest + 'css'
     },
 
@@ -47,28 +52,45 @@ var paths = {
 
 
 
-// ------- pug ---------
+// ------- pug task ---------
 
 gulp.task('pug', function() {
-    var assets = useref.assets();
 
-    gulp.src(paths.pug.compiled)
+    return gulp.src(paths.pug.compiled)
       .pipe(plumber())
       .pipe(pug({
           pretty: '\t',
           basedir: root
       }))
-      .pipe(assets)
       .pipe(gulpif('*.js', uglify()))
       .pipe(gulpif('*.css', cssnano()))
-      .pipe(assets.restore())
       .pipe(useref())
       .pipe(gulp.dest(paths.pug.destination));
 });
 
+// ------- sass task ---------
 
+gulp.task('sass', function() {
+    return gulp.src(paths.scss.entryPoint)
+      .pipe(sourcemaps.init())
+      .pipe(sass()).on('error', sass.logError)
 
+      .pipe(autoprefixer({browser: ['last 3 version', '> 1%', 'ie 8', 'ie 9', 'Opera 12.1']}))
+      .pipe(sourcemaps.write())
+      .pipe(gulp.dest(paths.scss.destination))
+      // .pipe(browserSync.reload({
+      //     stream: true
+      // }))
+      .pipe(browserSync.stream())
 
+      // .pipe(sass({style: 'compressed'}))
+      // .pipe(cssnano())
+      // .pipe(rename({suffix: '.min'}))
+
+      ;
+});
+
+///////////
 
 
 gulp.task('browserSync', function() {
@@ -101,18 +123,6 @@ gulp.task('scripts', function() {
         }));
 });
 
-// Compile CSS from Sass files
-gulp.task('sass', function() {
-    return gulp.src(src + 'scss/style.scss')
-        .pipe(plumber())
-        .pipe(sass({style: 'compressed'}))
-        .pipe(cssnano())
-        .pipe(rename({suffix: '.min'}))
-        .pipe(gulp.dest(dest + 'css'))
-        .pipe(browserSync.reload({
-            stream: true
-        }));
-});
 
 
 gulp.task('images', function() {
@@ -123,21 +133,47 @@ gulp.task('images', function() {
 
 // Watch for changes in files
 gulp.task('watch', function() {
-    // Watch bower vendors
-    gulp.watch('../vendor/**/*.js', ['bower-js']);
+    gulp.watch(paths.pug.location, gulp.series('pug'));
+    gulp.watch(paths.scss.location, gulp.series('sass'));
+    // // Watch bower vendors
+    // gulp.watch('../vendor/**/*.js', ['bower-js']);
+    //
+    // // Watch .html files
+    // gulp.watch(root + '*.html', browserSync.reload);
+    //
+    // // Watch .js files
+    // gulp.watch(src + 'js/*.js', ['scripts']);
+    //
+    // // Watch .scss files
+    // gulp.watch(src + 'scss/**/*.scss', ['sass']);
+    //
+    // // Watch image files
+    // gulp.watch(src + 'images/**/*', ['images']);
+});
 
-    // Watch .html files
-    gulp.watch(root + '*.html', browserSync.reload);
+gulp.task('serve', function() {
+    browserSync.init({
+        open: false,
+        server: './build/'
+    });
 
-    // Watch .js files
-    gulp.watch(src + 'js/*.js', ['scripts']);
+    browserSync.watch(['./build' + '/**/*.*', '!**/*.css'], browserSync.reload);
+});
 
-    // Watch .scss files
-    gulp.watch(src + 'scss/**/*.scss', ['sass']);
-
-    // Watch image files
-    gulp.watch(src + 'images/**/*', ['images']);
+gulp.task('clean', function(cb) {
+    return rimraf(dest, cb);
 });
 
 // Default Task
-gulp.task('default', ['browserSync', 'bower-js', 'scripts', 'sass', 'images', 'watch']);
+// gulp.task('default', ['pug', 'sass', 'browserSync', 'watch', 'serve']);
+gulp.task('default', gulp.series(
+  'clean',
+  gulp.parallel (
+    'pug',
+    'sass'
+  ),
+  gulp.parallel(
+    'watch',
+    'serve'
+  )
+));
