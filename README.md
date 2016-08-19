@@ -2,9 +2,11 @@
 
 Getting started:
 
-1. clone this repo - git clone https://github.com/keen-on-design/boilerplate.git
-2. install npm and bower packages...
-3. install gem bourbon...
+1. clone this repo - "git clone https://github.com/keen-on-design/boilerplate.git"
+2. install gulp 4 global - "npm install gulpjs/gulp-cli#4.0 -g"
+3. install bower packages - "bower i"
+4. install npm packages - "npm i"
+5. to start the project run command "gulp"
 
 ## SASS
 Рабочая директория: app/scss
