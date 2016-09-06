@@ -62,8 +62,7 @@ gulp.task('pug', function() {
         .pipe(gulpif('*.js', uglify()))
         .pipe(gulpif('*.css', cssnano()))
         .pipe(useref())
-        .pipe(gulp.dest(paths.pug.destination))
-        ;
+        .pipe(gulp.dest(paths.pug.destination));
 });
 
 // ------- sass task ---------
@@ -181,6 +180,7 @@ gulp.task('clean', function(cb) {
 gulp.task('default', gulp.series(
     'clean',
     gulp.parallel (
+        'pug',
         'sass',
         'scripts'
     ),
