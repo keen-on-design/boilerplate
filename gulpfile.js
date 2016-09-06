@@ -1,7 +1,7 @@
 // Define base folders
-var root    = './';
-var src     = './app/';
-var dest    = './build/';
+var root = './';
+var src  = './app/';
+var dest = './build/';
 
 // Include plugins
 var gulp            = require('gulp'),
@@ -19,34 +19,32 @@ var gulp            = require('gulp'),
     cache           = require('gulp-cache'),
     cssnano         = require('gulp-cssnano'),
     filter          = require('gulp-filter'),
-    mainBowerFiles  = require('main-bower-files'),
     useref          = require('gulp-useref'),
     rimraf          = require('rimraf'),
     browserSync     = require('browser-sync').create();
 
 // Paths
-
 var paths = {
     pug : {
-        location : src + 'template/**/*.pug',
-        compiled : src + 'template/_pages/*.pug',
-        destination: dest
+        location    : src + 'template/**/*.pug',
+        compiled    : src + 'template/_pages/*.pug',
+        destination : dest
     },
 
     scss : {
-        location : src + 'scss/**/*.scss',
-        entryPoint : src + 'scss/style.scss',
-        destination: dest + 'css'
+        location    : src + 'scss/**/*.scss',
+        entryPoint  : src + 'scss/style.scss',
+        destination : dest + 'css'
     },
 
     js : {
-        location : src + 'js/**/*.js',
-        entryPoint : src + 'js/main.js',
+        location    : src + 'js/**/*.js',
+        entryPoint  : src + 'js/main.js',
         destination : dest + 'js'
     },
 
     browserSync : {
-        baseDir : root,
+        baseDir    : root,
         watchPaths : ['build/*.html', 'build/css/*.css', 'build/js/*.js']
     }
 };
@@ -54,36 +52,30 @@ var paths = {
 
 
 // ------- pug task ---------
-
 gulp.task('pug', function() {
-
     return gulp.src(paths.pug.compiled)
-      .pipe(plumber())
-      .pipe(pug({
-          pretty: '\t',
-          basedir: root
-      }))
-      .pipe(gulpif('*.js', uglify()))
-      .pipe(gulpif('*.css', cssnano()))
-      .pipe(useref())
-      .pipe(gulp.dest(paths.pug.destination));
+        .pipe(plumber())
+        .pipe(pug({
+            pretty: '\t',
+            basedir: root
+        }))
+        .pipe(gulpif('*.js', uglify()))
+        .pipe(gulpif('*.css', cssnano()))
+        .pipe(useref())
+        .pipe(gulp.dest(paths.pug.destination))
+        ;
 });
 
 // ------- sass task ---------
-
 gulp.task('sass', function() {
     return gulp.src(paths.scss.entryPoint)
-      .pipe(sourcemaps.init())
-      .pipe(sass()).on('error', sass.logError)
+        .pipe(sourcemaps.init())
+        .pipe(sass()).on('error', sass.logError)
 
-      .pipe(autoprefixer({browser: ['last 3 version', '> 1%', 'ie 8', 'ie 9', 'Opera 12.1']}))
-      .pipe(sourcemaps.write())
-      .pipe(gulp.dest(paths.scss.destination))
-      // .pipe(browserSync.reload({
-      //     stream: true
-      // }))
-      .pipe(browserSync.stream())
-
+        .pipe(autoprefixer({browser: ['last 3 version', '> 1%', 'ie 8', 'ie 9', 'Opera 12.1']}))
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest(paths.scss.destination))
+        .pipe(browserSync.stream())
       // .pipe(sass({style: 'compressed'}))
       // .pipe(cssnano())
       // .pipe(rename({suffix: '.min'}))
@@ -94,32 +86,28 @@ gulp.task('sass', function() {
 
 
 // ---------- js task ----------
-
 gulp.task('scripts', function(){
-   return gulp.src(paths.js.entryPoint)
-     .pipe(plumber())
-     .pipe(browserify({
-         insertGlobals : true,
-         debug : true
-     }))
-     .pipe(uglify())
-     .pipe(rename('main.min.js'))
-     .pipe(gulp.dest(paths.js.destination));
+    return gulp.src(paths.js.entryPoint)
+        .pipe(plumber())
+        .pipe(browserify({
+            insertGlobals : true,
+            debug : true
+        }))
+        .pipe(uglify())
+        .pipe(rename('main.min.js'))
+        .pipe(gulp.dest(paths.js.destination));
 });
 
 
 
 // --------- images task --------------
-
 gulp.task('images', function() {
     return gulp.src(src + 'images/**/*')
-      .pipe(cache(imagemin({ optimizationLevel: 5, progressive: true, interlaced: true })))
-      .pipe(gulp.dest(dest + 'img'));
+        .pipe(cache(imagemin({ optimizationLevel: 5, progressive: true, interlaced: true })))
+        .pipe(gulp.dest(dest + 'img'));
 });
 
 ///////////
-
-
 gulp.task('browserSync', function() {
     browserSync.init({
         server: {
@@ -191,14 +179,13 @@ gulp.task('clean', function(cb) {
 // -------- Default Task -----------
 // gulp.task('default', ['pug', 'sass', 'browserSync', 'watch', 'serve']);
 gulp.task('default', gulp.series(
-  'clean',
-  gulp.parallel (
-    'pug',
-    'sass',
-    'scripts'
-  ),
-  gulp.parallel(
-    'watch',
-    'serve'
-  )
+    'clean',
+    gulp.parallel (
+        'sass',
+        'scripts'
+    ),
+    gulp.parallel(
+        'watch',
+        'serve'
+    )
 ));
