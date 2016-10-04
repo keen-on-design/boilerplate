@@ -1,0 +1,3 @@
+[submodule "gulp/cradle.tasks"]
+	path = gulp/cradle.tasks
+	url = http://github.com/keen-on-design/cradle.gulp-tasks.git
