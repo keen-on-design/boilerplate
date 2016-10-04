@@ -1,11 +1,11 @@
 {
-  "name": "keen-boilerplate",
+  "name": "cradle.boilerplate",
   "description": "",
   "main": "index.html",
   "authors": [
     "keen-on-design"
   ],
-  "license": "ISC",
+  "license": "MIT",
   "homepage": "https://github.com/keen-on-design/boilerplate",
   "private": true,
   "ignore": [
@@ -19,6 +19,6 @@
   "dependencies": {
     "jquery": "^3.1.0",
     "bourbon": "^4.2.7",
-    "neat": "^1.8.0"
+    "svg4everybody": "^2.1.0"
   }
 }
