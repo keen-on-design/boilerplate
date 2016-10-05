@@ -2,10 +2,7 @@
 
 ##Getting started:
 
-1. Clone this repo
-```
-git clone https://github.com/keen-on-design/boilerplate.git
-```
+1. Clone this repo ```git clone https://github.com/keen-on-design/boilerplate.git```
 2. Install submodules
 ```
 git submodule init
