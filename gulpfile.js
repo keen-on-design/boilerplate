@@ -4,8 +4,6 @@ var plugins = require('gulp-load-plugins')({
     DEBUG : false
 });
 
-var submodule = require('gulp-git-submodule');
-
 //noinspection JSDuplicatedDeclaration,JSUnresolvedVariable
 global.$ = {
     package: require('./package.json'),
@@ -39,8 +37,6 @@ global.$ = {
     plugins     : plugins,
     browserSync : require('browser-sync').create()
 };
-
-submodule.registerTasks($.gulp);
 
 $.path.task.forEach(function(taskPath) {
     require(taskPath)();
