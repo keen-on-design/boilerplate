@@ -4,6 +4,8 @@ var plugins = require('gulp-load-plugins')({
     DEBUG : false
 });
 
+var submodule = require('gulp-git-submodule');
+
 //noinspection JSDuplicatedDeclaration,JSUnresolvedVariable
 global.$ = {
     package: require('./package.json'),
@@ -11,19 +13,19 @@ global.$ = {
 
     path: {
         task: [
-            './gulp/tasks/clean.js',
-            './gulp/tasks/sass.js',
-            './gulp/tasks/fonts.js',
-            './gulp/tasks/pug.js',
-            './gulp/tasks/js.process.js',
-            './gulp/tasks/images.js',
-            './gulp/tasks/svg.sprite.js',
-            './gulp/tasks/serve.js',
-            './gulp/tasks/watch.js',
-            './gulp/tasks/favicon.create.js',
-            './gulp/tasks/favicon.to.pug.js',
-            './gulp/tasks/favicon.test.update.js',
-            './gulp/tasks/favicon.process.js'
+            './gulp/c.tasks/clean.js',
+            './gulp/c.tasks/sass.js',
+            './gulp/c.tasks/fonts.js',
+            './gulp/c.tasks/pug.js',
+            './gulp/c.tasks/js.process.js',
+            './gulp/c.tasks/images.js',
+            './gulp/c.tasks/svg.sprite.js',
+            './gulp/c.tasks/serve.js',
+            './gulp/c.tasks/watch.js',
+            './gulp/c.tasks/favicon.create.js',
+            './gulp/c.tasks/favicon.to.pug.js',
+            './gulp/c.tasks/favicon.test.update.js',
+            './gulp/c.tasks/favicon.process.js'
         ]
     },
 
@@ -38,7 +40,7 @@ global.$ = {
     browserSync : require('browser-sync').create()
 };
 
-
+submodule.registerTasks($.gulp);
 
 $.path.task.forEach(function(taskPath) {
     require(taskPath)();
