@@ -1,4 +1,5 @@
 # Cradle boilerplate
+Boilerplate for your projects made with [Gulp](http://gulpjs.com/), [Sass](http://sass-lang.com/), [Pug](https://pugjs.org/), [Browserify](http://browserify.org/) and [Real Favicon Generator](http://realfavicongenerator.net/).
 
 ##Installing
 ```
