@@ -2,7 +2,7 @@
 build/
 
 # Ignore Bower components
-app/bower_components
+bower_components/
 
 # Ignore Gulp files and node.js
 node_modules/
