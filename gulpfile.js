@@ -1,67 +1,53 @@
 'use strict';
+var gulp = require('gulp'),
+  util   = require('gulp-util'),
+  config = require('./gulp/config');
 
-var plugins = require('gulp-load-plugins')({
-    DEBUG : false
-});
-
-//noinspection JSDuplicatedDeclaration,JSUnresolvedVariable
 global.$ = {
-    package: require('./package.json'),
-    config: require('./gulp/config'),
+  package : require('./package.json'),
 
-    path: {
-        task: [
-            './gulp/c.tasks/clean.js',
-            './gulp/c.tasks/sass.js',
-            './gulp/c.tasks/fonts.js',
-            './gulp/c.tasks/pug.js',
-            './gulp/c.tasks/js.process.js',
-            './gulp/c.tasks/images.js',
-            './gulp/c.tasks/svg.sprite.js',
-            './gulp/c.tasks/serve.js',
-            './gulp/c.tasks/watch.js',
-            './gulp/c.tasks/favicon.create.js',
-            './gulp/c.tasks/favicon.to.pug.js',
-            './gulp/c.tasks/favicon.test.update.js',
-            './gulp/c.tasks/favicon.process.js'
-        ]
-    },
+  // Environment is stored in env property.
+  env : {
+    production : util.env[require('./gulp/config.env').flags.production] !== undefined,
+    debug      : util.env[require('./gulp/config.env').flags.debug]      !== undefined
+  },
 
-    gulp        : require('gulp'),
-    rimraf      : require('rimraf'),
-    fs          : {
-        utils   : require('fs-utils'),
-        exists  : require('file-exists')
-    },
-    console     : require('gulp-util'),
-    plugins     : plugins,
-    browserSync : require('browser-sync').create()
+  /**
+   * Task list. Is used to build common tasks.
+   * @property id Name of a task in a gulp pipeline. Optional: default value is set in a task file
+   * @property path Path to a task file
+   * @property config Task config. Optional: default config is set in a task file
+   */
+  tasks : [
+    //Generally tasks should be created with config from a global storage: gulp/config.js
+    { id : 'js:bundle', path : './gulp/c.tasks/bundle.js', config : config.bundle },
+    { id : 'js:browserify', path : './gulp/c.tasks/scripts.js', config : config.js },
+    { id : 'fonts', path : './gulp/c.tasks/relocate.js', config : config.fonts },
+    { id : 'sass', path : './gulp/c.tasks/sass.js', config : config.sass },
+    { id : 'js:lint', path : './gulp/c.tasks/eslint.js', config : config.lint },
+
+    //In some cases you can create tasks passing inline config to keep things simple and transparent.
+    { id : 'clean:dev', path : './gulp/c.tasks/clean.js', config : {destination: config.destPrd} },
+  ],
+
+  browserSync : require('browser-sync').create()
 };
 
-$.path.task.forEach(function(taskPath) {
-    require(taskPath)();
+$.tasks.forEach(function(task) {
+  //Gathering all tasks. Now you can use them in your pipeline. Don't forget to check log for warnings and errors
+  require(task.path)(task.id, task.config);
 });
 
-$.gulp.task('favicon', $.gulp.series(
-    'favicon.create',
-    'favicon.to.pug',
-    'favicon.test.update'
-));
-
-$.gulp.task('default', $.gulp.series(
-    'clean',
-    $.gulp.parallel(
-        'favicon.test.update',
-        'favicon.process',
-        'fonts',
-        'sass',
-        'pug',
-        'js.process',
-        'images',
-        'svg.sprite'
-    ),
-    $.gulp.parallel(
-        'watch',
-        'serve'
-    )
+/**
+ * This is your pipeline.
+ */
+gulp.task('default', gulp.series(
+  'js:lint',
+  'clean:dev',
+  gulp.parallel(
+    'fonts',
+    'js:bundle',
+    'js:browserify',
+    'sass'
+  )
 ));
