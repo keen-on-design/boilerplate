@@ -1,5 +1,6 @@
 'use strict';
-var path = require('./config.paths');
+var path = require('./config.paths'),
+  _ = require('underscore');
 
 module.exports = {
 
@@ -17,7 +18,7 @@ module.exports = {
             template    : '_favicon.pug',
             config      : require('./config.favicon.js')
         },
-        deploy : require('./config.deploy.js')
+        deploy : require('./config.ftp.js')
     },
 
     sass: {
@@ -37,18 +38,7 @@ module.exports = {
       location : path.src + 'js/**/*.js',
 
       eslint : {
-        failAfterError : false,
-        rules: {
-          'my-custom-rule': 1,
-          'strict': 2
-        },
-        globals: [
-          'jQuery',
-          '$'
-        ],
-        envs: [
-          'browser'
-        ]
+        failAfterError : false
       }
     },
 
@@ -74,6 +64,7 @@ module.exports = {
         production  : path.destPrd + 'js',
         development : path.destDev + 'js'
       },
+      vendors: _.keys(require('../package.json').dependencies),
       browserify: {
         insertGlobals: true
       }
@@ -85,7 +76,8 @@ module.exports = {
         production  : path.destPrd + 'js',
         development : path.destDev + 'js'
       },
-      output : 'bundle.js'
+      output : 'bundle.js',
+      vendors: _.keys(require('../package.json').dependencies)
     },
 
     fonts : {
@@ -97,17 +89,17 @@ module.exports = {
     },
 
     images : {
-        location       : path.src + 'images/**/*',
-        destinationDev : path.destDev + 'images',
-        destinationRls : path.destRls + 'images',
+      location: path.src + 'images/**/*',
+      destination: {
+        production: path.destPrd + 'images',
+        development: path.destDev + 'images'
+      },
 
-        config: {
-            imagemin: {
-                optimizationLevel: 5,
-                progressive: true,
-                interlaced: true
-            }
-        }
+      imagemin: {
+        optimizationLevel: 5,
+        progressive: true,
+        interlaced: true
+      }
     },
 
     svg: {
