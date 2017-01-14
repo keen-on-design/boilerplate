@@ -69,6 +69,7 @@ gulp.task('default', gulp.series(
     'fonts'
   ),
   gulp.parallel(
+    'watch',
     'serve'
   )
 ));
