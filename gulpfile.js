@@ -25,7 +25,7 @@ global.$ = {
     // Generally tasks should be created with config from a global storage: gulp/config.js.
     { id: 'js:lint', path: './gulp/c.tasks/eslint.js', config: config.lint },
     { id: 'js:bundle', path: './gulp/c.tasks/bundle.js', config: config.bundle },
-    { id: 'js:browserify', path: './gulp/c.tasks/browserify.js', config: config.js },
+    { id: 'js:browserify', path: './gulp/c.tasks/browserify.js', config: config.browserify },
     { id: 'pug', path: './gulp/c.tasks/pug.js', config: config.pug },
     { id: 'sass', path: './gulp/c.tasks/sass.js', config: config.sass },
     { id: 'fonts', path: './gulp/c.tasks/relocate.js', config: config.fonts },
@@ -48,7 +48,7 @@ $.tasks.forEach(function(task) {
  */
 
 gulp.task('watch', function () {
-  gulp.watch(config.js.location, gulp.series('js:lint', 'js:browserify'));
+  gulp.watch(config.browserify.location, gulp.series('js:lint', 'js:browserify'));
   gulp.watch(config.sass.location, gulp.series('sass'));
   gulp.watch(config.pug.location, gulp.series('pug'));
   gulp.watch(config.fonts.location, gulp.series('fonts'));
