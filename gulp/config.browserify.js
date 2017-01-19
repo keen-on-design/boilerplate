@@ -1,5 +1,5 @@
 'use strict';
-var path = require('./config.paths'),
+let path = require('./config.paths');
 
 module.exports = {
   location    : path.src + 'js/**/*.js',
