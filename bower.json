@@ -15,8 +15,5 @@
     "vendor/",
     "test",
     "tests"
-  ],
-  "dependencies": {
-    "bourbon": "^4.2.7"
-  }
+  ]
 }
