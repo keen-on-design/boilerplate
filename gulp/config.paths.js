@@ -1,9 +1,8 @@
 'use strict';
 
 module.exports = {
-  root    : './',
-  src     : './src/',
-  destDev : './build/',
-  destRls : './build/',
-  destPrd : './build/'
+    root    : './',
+    src     : './src/',
+    destDev : './build/',
+    destPrd : './build/'
 };

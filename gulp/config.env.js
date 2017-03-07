@@ -1,8 +1,8 @@
 'use strict';
 
 module.exports = {
-  flags : {
-    production : 'production',
-    debug      : 'debug'
-  }
+    flags : {
+        production : 'production',
+        debug      : 'debug'
+    }
 };

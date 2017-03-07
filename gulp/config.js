@@ -1,27 +1,20 @@
 'use strict';
-var path = require('./config.paths'),
-  _ = require('underscore');
+const path = require('./config.paths');
+const _ = require('underscore');
+const util = require('gulp-util');
 
 module.exports = {
 
-  root    : path.root,
-  src     : path.src,
-  destDev : path.destDev,
-  destPrd : path.destPrd,
-
-  app : {
-    favicon : {
-      location    : path.src + 'favicon/master.png',
-      destination : path.src + 'favicon/',
-      dataFile    : path.root + 'favicon.json',
-      basedir     : '/',
-      template    : '_favicon.pug',
-      config      : require('./config.favicon.js')
-    },
-    deploy : require('./config.ftp.js')
+  favicon: {
+    location: path.src + 'favicon/master.png',
+    destination: path.src + 'favicon/',
+    dataFile: path.root + 'favicon.json',
+    basedir: '/',
+    template: '_favicon.pug',
+    config: require('./config.favicon.js')
   },
 
-  browsersync : {
+  browsersync: {
     server: {
       open: false,
       server: path.destDev
@@ -30,23 +23,23 @@ module.exports = {
   },
 
   sass: {
-    location    : path.src + 'scss/**/*.scss',
-    entryPoint  : path.src + 'scss/style.scss',
-    destination : {
-      production  : path.destPrd + 'css',
-      development : path.destDev + 'css'
+    location: path.src + 'scss/**/*.scss',
+    entryPoint: path.src + 'scss/style.scss',
+    destination: {
+      production: path.destPrd + 'css',
+      development: path.destDev + 'css'
     },
-    sass : {},
-    autoprefixer : {
+    sass: {},
+    autoprefixer: {
       browsers: ['last 3 version', '> 1%', 'ie 8', 'ie 9', 'Opera 12.1']
     }
   },
 
-  lint : {
-    location : path.src + 'js/**/*.js',
+  lint: {
+    location: path.src + 'js/**/*.js',
 
-    eslint : {
-      failAfterError : false
+    eslint: {
+      failAfterError: false
     }
   },
 
@@ -66,38 +59,33 @@ module.exports = {
     useref: {}
   },
 
-  js : {
-    location    : path.src + 'js/**/*.js',
-    entryPoint  : path.src + 'js/main.js',
-    destination : {
-      production  : path.destPrd + 'js',
-      development : path.destDev + 'js'
-    },
-    vendors: _.keys(require('../package.json').dependencies),
-    browserify: {
-      insertGlobals: true
-    }
+  vue: {
+    location: path.src + 'js/**/*.vue',
   },
 
-  bundle : {
-    entryPoint  : path.src + 'js/main.js',
-    destination : {
-      production  : path.destPrd + 'js',
-      development : path.destDev + 'js'
+  webpack: (util.env[require('./config.env').flags.production] !== undefined) ? require('./webpack/webpack.prod.config') : require('./webpack/webpack.base.config'),
+
+  browserify: require('./config.browserify'),
+
+  bundle: {
+    entryPoint: path.src + 'js/main.js',
+    destination: {
+      production: path.destPrd + 'js',
+      development: path.destDev + 'js'
     },
-    output : 'bundle.js',
+    output: 'bundle.js',
     vendors: _.keys(require('../package.json').dependencies)
   },
 
-  fonts : {
-    location       : path.src + 'fonts/**/*.{ttf,woff,woff2,eof,svg}',
-    destination : {
-      production  : path.destPrd + 'fonts',
-      development : path.destDev + 'fonts'
+  fonts: {
+    location: path.src + 'fonts/**/*.{ttf,woff,woff2,eof,svg}',
+    destination: {
+      production: path.destPrd + 'fonts',
+      development: path.destDev + 'fonts'
     }
   },
 
-  images : {
+  images: {
     location: path.src + 'images/**/*',
     destination: {
       production: path.destPrd + 'images',
@@ -112,7 +100,7 @@ module.exports = {
   },
 
   svgsprite: {
-    location       : path.src + 'svg/**/*.svg',
+    location: path.src + 'svg/**/*.svg',
     destination: {
       production: path.destPrd + 'svg',
       development: path.destDev + 'svg',
@@ -141,4 +129,5 @@ module.exports = {
     }
   },
 
+  ftp: require('./config.ftp')
 };

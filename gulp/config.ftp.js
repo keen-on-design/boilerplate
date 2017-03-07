@@ -3,7 +3,7 @@
 let path = require('./config.paths');
 
 module.exports = {
-  destination: '/public_html/',
+  destination: '/http/assets/app',
 
   files: [
     path.destPrd + 'css/**',
@@ -17,7 +17,7 @@ module.exports = {
 
   connect: {
     host: 'HOMESTEAD',
-    user: 'USERNAME',
+    user: 'USER',
     password: 'SECRET',
     parallel: 10,
     log: require('gulp-util').log,
