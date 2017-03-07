@@ -1,7 +1,15 @@
 'use strict';
-var gulp = require('gulp'),
-  util = require('gulp-util'),
-  config = require('./gulp/config');
+
+let gutil = require('gulp-util');
+const isProduction = (gutil.env[require('./gulp/config.env').flags.production] !== undefined);
+
+// Set node env to production if running with a production flag
+if (isProduction) process.env.NODE_ENV = 'production';
+
+let gulp = require('gulp');
+let config = require('./gulp/config');
+let path = require('./gulp/config.paths');
+
 
 global.$ = {
   package: require('./package.json'),
@@ -11,8 +19,8 @@ global.$ = {
 
   // Environment is stored in env property.
   env: {
-    production: util.env[require('./gulp/config.env').flags.production] !== undefined,
-    debug: util.env[require('./gulp/config.env').flags.debug] !== undefined
+    production: gutil.env[require('./gulp/config.env').flags.production] !== undefined,
+    debug: gutil.env[require('./gulp/config.env').flags.debug] !== undefined
   },
 
   /**
@@ -23,22 +31,18 @@ global.$ = {
    */
   tasks: [
     // Generally tasks should be created with config from a global storage: gulp/config.js.
-    { id: 'js:lint', path: './gulp/c.tasks/eslint.js', config: config.lint },
-    { id: 'js:bundle', path: './gulp/c.tasks/bundle.js', config: config.bundle },
-    { id: 'js:browserify', path: './gulp/c.tasks/browserify.js', config: config.js },
-    { id: 'pug', path: './gulp/c.tasks/pug.js', config: config.pug },
-    { id: 'sass', path: './gulp/c.tasks/sass.js', config: config.sass },
-    { id: 'fonts', path: './gulp/c.tasks/relocate.js', config: config.fonts },
-    { id: 'images', path: './gulp/c.tasks/images.js', config: config.images },
-    { id: 'svg:sprite', path: './gulp/c.tasks/svg.js', config: config.svgsprite },
-    { id: 'serve', path: './gulp/c.tasks/serve.js', config: config.browsersync },
+    {id: 'webpack', path: './gulp/c.tasks/webpack.js', config: config.webpack},
+    {id: 'serve', path: './gulp/c.tasks/webpack-dev-server.js', config: config.webpack},
+    {id: 'svg:sprite', path: './gulp/c.tasks/svg.js', config: config.svgsprite},
+    {id: 'ftp:deploy', path: './gulp/c.tasks/ftp-deploy.js', config: config.ftp},
+    {id: 'ftp:clean', path: './gulp/c.tasks/ftp-clean.js', config: config.ftp},
 
-    // In some cases you can create tasks passing inline config to keep things simple and transparent.
-    { id: 'clean:dev', path: './gulp/c.tasks/clean.js', config: {destination: config.destPrd} },
+    // In some cases you can create tasks passing inline config to keep things transparent.
+    {id: 'clean', path: './gulp/c.tasks/clean.js', config: {destination: './build'}},
   ]
 };
 
-$.tasks.forEach(function(task) {
+$.tasks.forEach(function (task) {
   // Gathering all tasks. Now you can use them in your pipeline. Don't forget to check log for warnings and errors.
   require(task.path)(task.id, task.config);
 });
@@ -48,28 +52,22 @@ $.tasks.forEach(function(task) {
  */
 
 gulp.task('watch', function () {
-  gulp.watch(config.js.location, gulp.series('js:lint', 'js:browserify'));
-  gulp.watch(config.sass.location, gulp.series('sass'));
-  gulp.watch(config.pug.location, gulp.series('pug'));
-  gulp.watch(config.fonts.location, gulp.series('fonts'));
   gulp.watch(config.svgsprite.location, gulp.series('svg:sprite'));
-  gulp.watch(config.images.location, gulp.series('images'));
 });
 
-gulp.task('default', gulp.series(
-  'js:lint',
-  'clean:dev',
-  gulp.parallel(
-    'js:bundle',
-    'js:browserify',
-    'pug',
-    'sass',
-    'images',
-    'svg:sprite',
-    'fonts'
-  ),
-  gulp.parallel(
-    'watch',
-    'serve'
-  )
+gulp.task('deploy-clean', gulp.series(
+  'ftp:clean'
 ));
+
+gulp.task('deploy', gulp.series(
+  'ftp:deploy'
+));
+
+gulp.task('default', gulp.series(
+  'clean',
+  gulp.parallel(
+    'svg:sprite'
+  ),
+  'webpack',
+  (!isProduction) ? gulp.parallel('serve', 'watch') : function (done) {done();})
+);
