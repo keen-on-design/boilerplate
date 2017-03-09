@@ -109,6 +109,14 @@ module.exports = {
       minify: false
     }),
 
+    new HtmlWebpackPlugin({
+      hash: true,
+      template: 'src/template/_pages/example.pug',
+      filename: 'example.html',
+      inject: true,
+      minify: false
+    }),
+
     new ManifestPlugin({
       fileName: 'manifest.json'
     })

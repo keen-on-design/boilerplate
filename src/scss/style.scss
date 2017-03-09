@@ -4,13 +4,7 @@
 @import "_settings/settings";
 
 @import "_base/union";
-//@import "_components/union";
+@import "_components/union";
 @import "_layout/union";
 //@import "_pages/union";
 //@import "_vendors/union";
-
-* {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
