@@ -1,69 +1,42 @@
-//$body-font-size: 1em !default;
-//$body-line-height: golden-ratio(1em, 1) !default;
-//$body-font-family: $helvetica !default;
-//
-//body {
-//  font: $body-font-size $body-font-family;
-//  line-height: $body-line-height;
-//}
-
-body, input, select, textarea {
-	color: _palette(base, foreground);
-	font-family: _font(body, family);
-	font-size: 12pt;
-	font-weight: _font(body, weight);
-	line-height: 1.65;
+body {
+  color: $base-font-color;
+  font-family: _font(body, family);
+  font-size: $base-font-size;
+  line-height: $base-line-height;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: _font(heading, family);
+  font-size: modular-scale(1);
+  line-height: $heading-line-height;
+  margin: 0 0 $small-spacing;
+}
 
-// Hyperlinks
+p {
+  margin: 0 0 $small-spacing;
+}
+
 a {
-	color: _palette(base, accent);
-	text-decoration: none;
-	border-bottom: 1px solid rgba(_palette(base, accent), .3);
+  color: $action-color;
+  text-decoration: none;
+  transition: color $base-duration $base-timing;
+
+  &:active,
+  &:focus,
+  &:hover {
+    color: shade($action-color, 25%);
+  }
 }
 
-.link {
-	@at-root #{&}--muted {
-		color: _palette(base, foreground);
-		border-bottom: 1px solid rgba(_palette(base, foreground), .3);
-
-		&:hover {
-			border-bottom-color: rgba(_palette(base, foreground), .9);
-		}
-	}
-
-	@at-root #{&}--no-decoration {
-		border-bottom: none;
-	}
-}
-
-// Subscript & Superscript
-sub {
-	font-size: 0.8em;
-	position: relative;
-	top: 0.5em;
-}
-
-sup {
-	font-size: 0.8em;
-	position: relative;
-	top: -0.5em;
-}
-
-// Standalone classes
-.caps {
-	text-transform: uppercase;
-}
-
-.align-left {
-	text-align: left;
-}
-
-.align-center {
-	text-align: center;
-}
-
-.align-right {
-	text-align: right;
+hr {
+  border-bottom: $base-border;
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
+  margin: $base-spacing 0;
 }
