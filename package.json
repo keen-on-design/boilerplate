@@ -66,9 +66,9 @@
     "vinyl-ftp": "^0.5.0",
     "vinyl-paths": "^2.1.0",
     "vinyl-source-stream": "^1.1.0",
-    "vue-loader": "^10.2.3",
+    "vue-loader": "^10.3.0",
     "vue-style-loader": "^2.0.0",
-    "vue-template-compiler": "^2.1.10",
+    "vue-template-compiler": "^2.2.2",
     "vueify": "^9.4.0",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.4.1",
@@ -76,5 +76,8 @@
     "webpack-stream": "^3.2.0",
     "yargs": "^6.5.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "bourbon": "^4.3.3",
+    "vue": "^2.2.2"
+  }
 }
