@@ -1,21 +1,23 @@
-// Color Palettes
+// Color variables
+$color-aqua: #35bcc2;
+$color-green: green;
+$color-red: red;
+$color-orange: #f9a51b;
 
+// Color Palettes
 $palette: (
   base: (
-    primary			: #8e33FF,
-    secondary		: #5a1321,
-    accent			: #009CDE,
-    foreground	: #191919,
-    background	: #e9e9e9
+    primary			: $color-aqua,
+    secondary		: $color-orange,
+    fg: #191919,
+    bg: #ffffff
   ),
-  
-  inverse: (
-    primary			: #8e3329,
-    secondary		: #5a1321,
-    accent			: #d98328,
-    foreground	: #e9e9e9,
-    background	: #191919
-	),
+
+  interact: (
+    action: $color-aqua,
+    success: $color-green,
+    error: $color-red
+  ),
 
 	// Neutral colors (borders, inactive elements, etc)
   neutrals: (

@@ -1,4 +1,5 @@
 // Breakpoints.
+@import "../_lib/union";
 @import "breakpoints";
 
 // Font.
@@ -9,3 +10,31 @@
 
 // Sizes.
 @import "size";
+
+// Font Sizes
+$base-font-size: 1em;
+
+// Line height
+$base-line-height: 1.5;
+$heading-line-height: 1.2;
+
+// Other Sizes
+$base-border-radius: 3px;
+$base-spacing: $base-line-height * 1em;
+$small-spacing: $base-spacing / 2;
+$base-z-index: 0;
+
+// Font Colors
+$base-font-color: _palette(neutrals, x-dark);
+$action-color: _palette(interact, action);
+
+// Border
+$base-border-color: _palette(neutrals, light);
+$base-border: 1px solid $base-border-color;
+
+// Background Colors
+$base-background-color: _palette(base, bg);
+
+// Animations
+$base-duration: 150ms;
+$base-timing: ease;
