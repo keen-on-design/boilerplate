@@ -1,19 +1,20 @@
 # Cradle boilerplate
-Boilerplate for your projects made with [Gulp](http://gulpjs.com/), [Sass](http://sass-lang.com/), [Pug](https://pugjs.org/), [Browserify](http://browserify.org/) and [Real Favicon Generator](http://realfavicongenerator.net/).
+Boilerplate for your projects made with [Gulp](http://gulpjs.com/), [Sass](http://sass-lang.com/), [Pug](https://pugjs.org/), [webpack](https://webpack.js.org/).
 
 ##Installing
 ```
-git clone https://github.com/keen-on-design/boilerplate.git
+git clone ...
 git submodule init
 git submodule update
-npm install gulpjs/gulp-cli#4.0 -g
-bower i
 npm i
 ```
 
-##Getting started
+##Dev build (don't use it on a production server)
 ```
-gulp favicon
 gulp
 ```
 
+##Production build
+```
+gulp --production
+```
