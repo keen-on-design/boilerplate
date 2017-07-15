@@ -4,37 +4,6 @@ const _ = require('underscore');
 const util = require('gulp-util');
 
 module.exports = {
-
-  favicon: {
-    location: path.src + 'favicon/master.png',
-    destination: path.src + 'favicon/',
-    dataFile: path.root + 'favicon.json',
-    basedir: '/',
-    template: '_favicon.pug',
-    config: require('./config.favicon.js')
-  },
-
-  browsersync: {
-    server: {
-      open: false,
-      server: path.destDev
-    },
-    watch: [path.destDev + '**/*.*', '!**/*.css']
-  },
-
-  sass: {
-    location: path.src + 'scss/**/*.scss',
-    entryPoint: path.src + 'scss/style.scss',
-    destination: {
-      production: path.destPrd + 'css',
-      development: path.destDev + 'css'
-    },
-    sass: {},
-    autoprefixer: {
-      browsers: ['last 3 version', '> 1%', 'ie 8', 'ie 9', 'Opera 12.1']
-    }
-  },
-
   lint: {
     location: path.src + 'js/**/*.js',
 
@@ -59,13 +28,7 @@ module.exports = {
     useref: {}
   },
 
-  vue: {
-    location: path.src + 'js/**/*.vue',
-  },
-
   webpack: (util.env[require('./config.env').flags.production] !== undefined) ? require('./webpack/webpack.prod.config') : require('./webpack/webpack.base.config'),
-
-  browserify: require('./config.browserify'),
 
   bundle: {
     entryPoint: path.src + 'js/main.js',
@@ -82,20 +45,6 @@ module.exports = {
     destination: {
       production: path.destPrd + 'fonts',
       development: path.destDev + 'fonts'
-    }
-  },
-
-  images: {
-    location: path.src + 'images/**/*',
-    destination: {
-      production: path.destPrd + 'images',
-      development: path.destDev + 'images'
-    },
-
-    imagemin: {
-      optimizationLevel: 5,
-      progressive: true,
-      interlaced: true
     }
   },
 
