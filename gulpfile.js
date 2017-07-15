@@ -14,9 +14,6 @@ let path = require('./gulp/config.paths');
 global.$ = {
   package: require('./package.json'),
 
-  // Global Browsersync instance.
-  browserSync: require('browser-sync').create(),
-
   // Environment is stored in env property.
   env: {
     production: gutil.env[require('./gulp/config.env').flags.production] !== undefined,
