@@ -1,4 +1,9 @@
+// Vendors
 @import "~bourbon/app/assets/stylesheets/bourbon";
+
+//Nicolas Gallagher Normalize (sass branch)
+@import "~normalize-scss/sass/normalize";
+@include normalize();
 
 // Settings and mixins
 @import "_lib/union";

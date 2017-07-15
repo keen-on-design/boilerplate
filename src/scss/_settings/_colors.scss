@@ -1,31 +1,42 @@
-// Color variables
-$color-aqua: #35bcc2;
-$color-green: green;
-$color-red: red;
-$color-orange: #f9a51b;
-
 // Color Palettes
+
 $palette: (
   base: (
-    primary			: $color-aqua,
-    secondary		: $color-orange,
+    primary: #EA4E5B,
+    secondary: #BED3C3,
+    accent: #E1E3E4,
     fg: #191919,
-    bg: #ffffff
+    bg: lighten(#EEEFF1, 2%),
   ),
 
   interact: (
-    action: $color-aqua,
-    success: $color-green,
-    error: $color-red
+    action: #707c9e,
+    error: #EA4E5B,
+    success: #9ace7d,
+    warning: yellow
   ),
 
-	// Neutral colors (borders, inactive elements, etc)
+  notice: (
+    base: #ffffff,
+    accent: #EA4E5B
+  ),
+
+  // Neutral colors (borders, inactive elements, etc)
   neutrals: (
-    x-dark		: #242529,
-    dark			: #42454C,
-    mid-dark	: #717580,
-    mid-light	: #B0B4BD,
-    light			: #C7CAD1,
-    x-light		: #EFF1F2,
-	),
+    x-dark: #07030e,
+    dark: #3c434b,
+    mid-dark: darken(#c1c2c7, 10%),
+    base: #c1c2c7,
+    mid-light: darken(#E5E7EA, 7%),
+    light: #E5E7EA,
+    x-light: #ffffff,
+  ),
+
+  //advert's block
+  ads: (
+    background: #fefef9,
+    text: #262525,
+    link: #707c9e,
+    border: #e9e7cf,
+  )
 );

@@ -1,6 +1,6 @@
 body {
-  color: $base-font-color;
-  font-family: _font(body, family);
+  color: _palette(base, fg);
+  font-family: _font(base, family);
   font-size: $base-font-size;
   line-height: $base-line-height;
 }
@@ -13,7 +13,6 @@ h5,
 h6 {
   font-family: _font(heading, family);
   font-size: modular-scale(1);
-  line-height: $heading-line-height;
   margin: 0 0 $small-spacing;
 }
 
@@ -22,14 +21,14 @@ p {
 }
 
 a {
-  color: $action-color;
+  color: _palette(interact, action);
   text-decoration: none;
   transition: color $base-duration $base-timing;
 
   &:active,
   &:focus,
   &:hover {
-    color: shade($action-color, 25%);
+    color: shade(_palette(interact, action), 25%);
   }
 }
 
@@ -38,5 +37,5 @@ hr {
   border-left: 0;
   border-right: 0;
   border-top: 0;
-  margin: $base-spacing 0;
+  margin: $small-spacing 0;
 }
