@@ -35,11 +35,12 @@ textarea {
   background-color: _palette(neutrals, x-light);
   border: $input-base-border;
   border-radius: $base-border-radius;
-  box-shadow: $input-box-shadow;
+  //box-shadow: $input-box-shadow;
   box-sizing: border-box;
   padding: $base-line-height / 3;
   width: 100%;
-  height: $base-line-height + 2 * ($base-line-height / 3);
+  background-color: red;
+  //height: $base-line-height + 2 * ($base-line-height / 3);
 
   &:hover {
     border-color: _palette(neutrals, base);
