@@ -1,26 +1,22 @@
+@import url('https://fonts.googleapis.com/css?family=Bitter:400,700|Roboto:400,400i,700');
+
 $font: (
   base : (
     family          : ('Roboto', 'Arial', sans-serif),
     weight          : 400,
-    weight-bold     : 500,
+    weight-bold     : 600,
     text-transform  : inherit
   ),
   heading : (
-    family          : ('PtSerifCaption', 'Georgia', serif),
+    family          : ('Bitter', 'Georgia', serif),
     weight          : 400,
-    weight-bold     : 600,
+    weight-bold     : 700,
     text-transform  : inherit
   ),
   subheading : (
-    family          : (Arial, Helvetica, sans-serif),
-    weight          : 500,
-    weight-bold     : 600,
-    text-transform  : inherit
-  ),
-  decorative : (
-    family          : (Arial, Helvetica, sans-serif),
-    weight          : normal,
-    weight-bold     : bold,
+    family          : ('Bitter', Helvetica, sans-serif),
+    weight          : 400,
+    weight-bold     : 700,
     text-transform  : inherit
   ),
   iconic : (
