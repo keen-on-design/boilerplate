@@ -11,8 +11,8 @@
 @import "size";
 
 // Modular Scale
-$modular-scale-ratio: $major-third;
-$modular-scale-base: 1em;
+$ms-ratio: 1.25;
+$ms-base: 1rem;
 
 /* Boilerplate variables */
 // Fonts.
@@ -34,10 +34,9 @@ $avatar-side-length: 50px;
 
 // Borders.
 $base-border-radius: 3px;
-$base-border: 1px solid _palette(neutrals, light);
-$light-border: 1px solid lighten(_palette(neutrals, light), 5%);
-$base-border-transparent: 1px solid rgba(_palette(neutrals, dark), .5);
-$light-border-transparent: 1px solid rgba(_palette(neutrals, dark), .1);
+$base-border-width: 1px;
+$base-border: #{$base-border-width} solid _palette(neutrals, light);
+$light-border: #{$base-border-width} solid lighten(_palette(neutrals, light), 5%);
 
 // Shadows.
 $base-shadow: 0 2px 3px rgba(_palette(neutrals, dark), .1);
@@ -45,9 +44,6 @@ $big-shadow: 0 2px 15px rgba(_palette(neutrals, dark), .1);
 $small-shadow: 0 1px 2px rgba(_palette(neutrals, dark), .2);
 $light-shadow: 0 2px 4px rgba(_palette(neutrals, dark), .2);
 $base-text-shadow: 0 1px 0 rgba(_palette(neutrals, x-dark), .4);
-
-// Custom blocks
-$activity-feed-width: 300px;
 
 // Animation.
 $base-duration: 180ms;
