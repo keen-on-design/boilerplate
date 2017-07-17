@@ -1,19 +1,17 @@
-// Vendors
-@import "~bourbon/app/assets/stylesheets/bourbon";
-
-//Nicolas Gallagher Normalize (sass branch)
+// Nicolas Gallagher Normalize (sass branch)
 @import "~normalize-scss/sass/normalize";
 @include normalize();
-
-@import '~modularscale-sass/stylesheets/modularscale';
-$modularscale: (
-  base: 1em,
-  ratio: 1.5
-);
 
 // Settings and mixins
 @import "_lib/union";
 @import "_settings/settings";
+
+// Modular scale
+@import '~modularscale-sass/stylesheets/modularscale';
+$modularscale: (
+  base: $ms-base,
+  ratio: $ms-ratio
+);
 
 @import "_base/union";
 @import "_components/union";
