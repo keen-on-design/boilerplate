@@ -1,6 +1,7 @@
 // Color Palettes
 
 $palette: (
+  // Base page colors
   base: (
     primary: #EA4E5B,
     secondary: #BED3C3,
@@ -9,6 +10,7 @@ $palette: (
     bg: lighten(#EEEFF1, 2%),
   ),
 
+  // Interact colors
   interact: (
     action: #707c9e,
     error: #EA4E5B,
@@ -16,6 +18,7 @@ $palette: (
     warning: yellow
   ),
 
+  // Notice colors
   notice: (
     base: #ffffff,
     accent: #EA4E5B
@@ -31,12 +34,4 @@ $palette: (
     light: #E5E7EA,
     x-light: #ffffff,
   ),
-
-  //advert's block
-  ads: (
-    background: #fefef9,
-    text: #262525,
-    link: #707c9e,
-    border: #e9e7cf,
-  )
 );
