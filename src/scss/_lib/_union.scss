@@ -1,3 +1,12 @@
 @import "helpers";
-@import "functions";
-@import "mixins";
+
+/* Functions */
+@import "functions/assign-inputs";
+@import "functions/maps";
+
+/* Addons */
+@import "addons/text-inputs";
+
+/* Mixins */
+@import "mixins/breakpoint";
+@import "mixins/clearfix";
