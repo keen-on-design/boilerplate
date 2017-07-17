@@ -1,7 +1,7 @@
 extends ../main
 
 block title
-  | CRADLE example page
+  | CRADLE style preview
 
 block content
   section.container
@@ -10,8 +10,11 @@ block content
       p The purpose of this HTML is to help determine what default settings are with Bitters and to make sure that all possible HTML Elements are included in this HTML so as to not miss any possible Elements when designing a site.
       hr
       h1#headings Headings
-      h1 h1. Heading
-      h2 h2. Heading
+      h1
+        | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam bibendum elit felis, eu elementum justo lobortis sit amet.
+      h2 
+        small h1. 
+        | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam bibendum elit felis, eu elementum justo lobortis sit amet.
       h3 h3. Heading
       h4 h4. Heading
       h5 h5. Heading
@@ -70,7 +73,7 @@ block content
             input#text_field(type="text")
           p
             label(for="text_area") Text Area:
-            textarea#text_area
+            textarea#text_area(rows="5")
             
           p
             label(for="select_element") Select Element:
