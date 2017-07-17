@@ -5,6 +5,12 @@
 @import "~normalize-scss/sass/normalize";
 @include normalize();
 
+@import '~modularscale-sass/stylesheets/modularscale';
+$modularscale: (
+  base: 1em,
+  ratio: 1.5
+);
+
 // Settings and mixins
 @import "_lib/union";
 @import "_settings/settings";
