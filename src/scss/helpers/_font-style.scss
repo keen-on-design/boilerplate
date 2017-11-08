@@ -1,0 +1,6 @@
+/// Gets a font value.
+/// @param {string} $keys Key(s).
+/// @return {string} Value.
+@function _font-style($keys...) {
+  @return map-val($font, $keys...);
+}

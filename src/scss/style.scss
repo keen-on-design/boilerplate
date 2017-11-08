@@ -1,20 +1,13 @@
 // Nicolas Gallagher Normalize (sass branch)
-@import "~normalize-scss/sass/normalize";
+@import '~normalize-scss/sass/normalize';
 @include normalize();
 
-// Settings and mixins
-@import "_lib/union";
-@import "_settings/settings";
+// Core functions
+@import 'core';
 
-// Modular scale
-@import '~modularscale-sass/stylesheets/modularscale';
-$modularscale: (
-  base: $ms-base,
-  ratio: $ms-ratio
-);
-
-@import "_base/union";
-@import "_components/union";
-@import "_layout/union";
-//@import "_pages/union";
-//@import "_vendors/union";
+// Boilerplate components
+@import 'base/union';
+@import 'components/union';
+@import 'layout/union';
+@import 'pages/union';
+@import 'vendors/union';

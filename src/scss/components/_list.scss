@@ -1,0 +1,30 @@
+ol {
+  list-style: decimal;
+  margin: $base-line-height 0;
+  padding-left: 1.25em;
+
+  li {
+    padding-left: 0.25em;
+  }
+}
+
+ul {
+  list-style: disc;
+  margin: $base-line-height 0;
+  padding-left: 1em;
+
+  li {
+    padding-left: 0.5em;
+  }
+}
+
+dl {
+  margin: $base-line-height 0;
+
+  dt {
+    display: block;
+  }
+
+  dd {
+  }
+}

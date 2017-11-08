@@ -1,0 +1,15 @@
+hr {
+  @include clearfix();
+  border: 0;
+  height: 0;
+  margin: $base-line-height 0;
+  position: relative;
+
+  &::after {
+    border-bottom: $base-border;
+    content: '';
+    display: block;
+    position: absolute;
+    width: 100%;
+  }
+}

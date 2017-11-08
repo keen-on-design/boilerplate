@@ -1,0 +1,44 @@
+body {
+  color: _palette(base, fg);
+  font-family: _font-style(base, family);
+  font-size: $base-font-size;
+  line-height: $base-line-height;
+}
+
+h1 {
+  font-family: _font-style(heading, family);
+  font-size: 1.5em;
+  line-height: 1em;
+  margin-bottom: 1em;
+  margin-top: 1em;
+}
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: _font-style(subheading, family);
+  font-size: 1.25em;
+  line-height: 1.2em;
+  margin-bottom: 1em;
+  margin-top: 1.2em;
+}
+
+p {
+  font-size: 1em;
+  line-height: 1.5em;
+  margin: 0 0 1.5em;
+}
+
+a {
+  color: _palette(base, link);
+  text-decoration: underline;
+  transition: color $base-duration $base-timing;
+
+  &:active,
+  &:focus,
+  &:hover {
+    color: shade(_palette(base, link), 25%);
+  }
+}

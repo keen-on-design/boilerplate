@@ -1,0 +1,36 @@
+// Color Palettes
+
+$palette: (
+  // Brand colors
+  brand: (
+    primary: green,
+    secondary: red
+  ),
+
+  // Basic colors
+  base: (
+    text: #000,
+    body: #fff,
+    link: #000
+  ),
+
+  // Colors for interactive elements
+  interact: (
+    action: #5c87fc,
+    error: #EA4E5B,
+    success: #9ace7d,
+    warning: yellow,
+    highlight: lighten(#DDF4E5, 5%)
+  ),
+
+  // Neutral colors (borders, inactive elements, etc)
+  neutrals: (
+    x-dark: #000,
+    dark: rgb(41, 41, 41),
+    mid-dark: rgb(92, 92, 92),
+    base: rgb(128, 128, 128),
+    mid-light: rgb(199, 199, 199),
+    light: rgb(202, 202, 202),
+    x-light: rgb(238, 238, 238),
+  )
+);

@@ -1,0 +1,10 @@
+/// Breakpoints map
+/// @prop {String} keys - Keys are identifiers mapped to a given length
+/// @prop {Map} values - Values are actual breakpoints expressed in pixels
+$breakpoints: (
+  'screen-xs': '(max-width: 480px)',  // Extra small screen / phone
+  'screen-sm': '(max-width: 768px)',  // Small screen / tablet
+  'screen-md': '(max-width: 992px)',  // Medium screen / desktop
+  'screen-lg': '(max-width: 1200px)', // Large screen / wide desktop
+  'screen-xl': '(min-width: 1201px)', // Extra large screen
+);
