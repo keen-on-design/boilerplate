@@ -54,8 +54,6 @@
     "yargs": "^6.5.0"
   },
   "dependencies": {
-    "bourbon": "^4.3.3",
-    "modularscale-sass": "^3.0.3",
     "normalize-scss": "^7.0.0"
   }
 }
